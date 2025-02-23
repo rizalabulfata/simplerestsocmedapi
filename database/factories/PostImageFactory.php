@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,7 @@ class PostImageFactory extends Factory
     public function definition(): array
     {
         return [
-            'post_id' => PostFactory::new()->create()->id,
+            'post_id' => Post::inRandomOrder()->first()->id ?? PostFactory::new()->create()->id,
             'iamge_url' > fake()->imageUrl()
         ];
     }
