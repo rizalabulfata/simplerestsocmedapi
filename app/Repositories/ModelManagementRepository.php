@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\ModelManagementInterface;
-use App\Models\Model;
+use Illuminate\Database\Eloquent\Model;
 
 class ModelManagementRepository implements ModelManagementInterface
 {

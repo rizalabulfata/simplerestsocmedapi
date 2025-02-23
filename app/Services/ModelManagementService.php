@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Model;
 use App\Repositories\ModelManagementRepository;
+use Illuminate\Database\Eloquent\Model;
 
 class ModelManagementService
 {
