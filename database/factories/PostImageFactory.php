@@ -19,7 +19,7 @@ class PostImageFactory extends Factory
     {
         return [
             'post_id' => Post::inRandomOrder()->first()->id ?? PostFactory::new()->create()->id,
-            'iamge_url' > fake()->imageUrl()
+            'image_url' => fake()->imageUrl()
         ];
     }
 }
