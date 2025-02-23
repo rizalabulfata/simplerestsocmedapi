@@ -2,11 +2,11 @@
 
 namespace Tests\Unit;
 
-use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
+use Tests\TestCase;
 
-class PostTest extends BaseTest
+class PostTest extends TestCase
 {
     /**
      * An user can create a post.

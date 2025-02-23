@@ -5,8 +5,9 @@ namespace Tests\Unit;
 use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
+use Tests\TestCase;
 
-class LikeTest extends BaseTest
+class LikeTest extends TestCase
 {
     /**
      * Test that a user can like a post

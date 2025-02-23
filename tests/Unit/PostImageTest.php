@@ -4,8 +4,9 @@ namespace Tests\Unit;
 
 use App\Models\Post;
 use App\Models\PostImage;
+use Tests\TestCase;
 
-class PostImageTest extends BaseTest
+class PostImageTest extends TestCase
 {
     /**
      * Test that a post image can be created

@@ -1,8 +1,9 @@
 <?php
 
 namespace {{ namespace }};
+use Tests\TestCase;
 
-class {{ class }} extends BaseTest
+class {{ class }} extends TestCase
 {
     /**
      * A basic unit test example.

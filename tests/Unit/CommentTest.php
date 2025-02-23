@@ -5,8 +5,9 @@ namespace Tests\Unit;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
+use Tests\TestCase;
 
-class CommentTest extends BaseTest
+class CommentTest extends TestCase
 {
     public function test_user_can_add_comment_to_post()
     {

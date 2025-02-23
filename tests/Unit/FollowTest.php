@@ -4,8 +4,9 @@ namespace Tests\Unit;
 
 use App\Models\Follow;
 use App\Models\User;
+use Tests\TestCase;
 
-class FollowTest extends BaseTest
+class FollowTest extends TestCase
 {
     /**
      * An user can follow another user.
