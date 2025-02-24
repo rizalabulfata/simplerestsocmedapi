@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PostResource extends JsonResource
+class CommentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,10 +18,7 @@ class PostResource extends JsonResource
         $data = $this->resource->toArray();
         $data['created_at'] = Carbon::parse($this->created_at)->locale('id')->translatedFormat('d F Y H:i:s');
         $data['updated_at'] = Carbon::parse($this->updated_at)->locale('id')->translatedFormat('d F Y H:i:s');
-
-        if ($this->user_id) {
-            $data['user_name'] = $this->user->name;
-        }
+        $data['user_name'] = $this->user->name;
 
         return $data;
     }

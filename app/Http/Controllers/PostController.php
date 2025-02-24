@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
+use App\Http\Responses\ApiResponse;
 use App\Services\PostService;
 use Exception;
 use Illuminate\Http\Request;
@@ -16,8 +17,11 @@ class PostController extends Controller
     public function index(PostService $service)
     {
         $rows = $service->getListData();
+        if (empty($rows)) {
+            return ApiResponse::error('No data found', 404);
+        }
 
-        return PostResource::collection($rows);
+        return ApiResponse::success(PostResource::collection($rows));
     }
 
     /**
@@ -26,9 +30,14 @@ class PostController extends Controller
     public function store(PostRequest $request, PostService $service)
     {
         $record = $request->validated();
+        try {
+            $record['user_id'] = $request->user()?->id;
+            $model = $service->createData($record);
 
-        $model = $service->createData($record);
-        return new PostResource($model);
+            return ApiResponse::success(new PostResource($model), 'Post created successfully', 201);
+        } catch (\Exception $e) {
+            return ApiResponse::error($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -37,7 +46,8 @@ class PostController extends Controller
     public function show(string $id, PostService $service)
     {
         $data = $service->getData($id);
-        return new PostResource($data);
+
+        return ApiResponse::success(new PostResource($data));
     }
 
     /**
@@ -47,8 +57,13 @@ class PostController extends Controller
     {
         $record = $request->validated();
 
-        $model = $service->updateData($id, $record);
-        return new PostResource($model);
+        try {
+            $model = $service->updateData($id, $record);
+
+            return ApiResponse::success(new PostResource($model), 'Post updated successfully');
+        } catch (\Exception $e) {
+            return ApiResponse::error($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -59,7 +74,7 @@ class PostController extends Controller
         list($status, $model) = $service->deleteData($id);
 
         if ($status) {
-            return new PostResource($model);
+            return ApiResponse::success(new PostResource($model));
         }
     }
 
@@ -71,7 +86,7 @@ class PostController extends Controller
         $posts = $id ?
             $service->getPostByAuthorId($id) :
             $service->getPostByAuthor($request->user());
-        return PostResource::collection($posts);
+        return ApiResponse::success(PostResource::collection($posts));
     }
 
     /**
@@ -80,10 +95,10 @@ class PostController extends Controller
     public function like(Request $request, PostService $service, int $id)
     {
         $data = $request->method() === 'GET' ?
-            $service->likedPosts($id) :
-            $service->like($request->user(), $id);
+            PostResource::collection($service->likedPosts($id)) :
+            new PostResource($service->like($request->user(), $id));
 
-        return response()->json($data);
+        return ApiResponse::success($data);
     }
 
     /**
@@ -92,7 +107,7 @@ class PostController extends Controller
     public function unlike(Request $request, PostService $service, int $id)
     {
         $data = $service->unlike($request->user(), $id);
-        return response()->json($data);
+        return ApiResponse::success($data);
     }
 
     /**
@@ -101,6 +116,6 @@ class PostController extends Controller
     public function liked(Request $request, PostService $service)
     {
         $data = $service->likedPostsByUser($request->user());
-        return response()->json($data);
+        return ApiResponse::success(PostResource::collection($data));
     }
 }

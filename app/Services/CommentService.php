@@ -37,13 +37,15 @@ class CommentService extends ModelManagementService
      * 
      * @param User $user
      * @param int $commentId
+     * @param array [status, comment]
      */
     public function uncomment(int $postId, int $commentId)
     {
         $post = (new PostService())->getData($postId);
-        $post->comments()->where('id', $commentId)->delete();
+        $comment = $post->comments()->where('id', $commentId)->firstOrFail();
+        $status = $comment->delete();
 
-        return $post;
+        return [$status, $comment];
     }
 
     /**c

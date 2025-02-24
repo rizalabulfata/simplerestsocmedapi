@@ -75,9 +75,9 @@ class PostService extends ModelManagementService
     public function unlike(User $user, int $postId)
     {
         $post = $this->getData($postId);
-        $user->likes()->withTimestamps()->detach($post->id);
+        $like = $user->likes()->withTimestamps()->detach($post->id);
 
-        return $post;
+        return $like;
     }
 
     /**
@@ -105,8 +105,8 @@ class PostService extends ModelManagementService
     public function uncomment(User $user, int $postId)
     {
         $post = $this->getData($postId);
-        $user->comments()->detach($post->id);
+        $comment = $user->comments()->detach($post->id);
 
-        return $post;
+        return $comment;
     }
 }

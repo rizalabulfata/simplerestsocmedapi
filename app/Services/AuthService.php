@@ -25,12 +25,7 @@ class AuthService extends ModelManagementService
         $user = $this->repository->create($record);
         $token = $user->createToken('auth_token');
 
-        return [
-            'user' => $user,
-            'token' => $token->plainTextToken,
-            'type' => 'Bearer',
-            'token_details' => $token
-        ];
+        return [$user, $token];
     }
 
     /**
