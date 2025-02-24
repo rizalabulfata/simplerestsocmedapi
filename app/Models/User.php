@@ -76,7 +76,7 @@ class User extends Authenticatable
      */
     public function likes()
     {
-        return $this->hasMany(Like::class);
+        return $this->belongsToMany(Post::class, Like::class);
     }
 
     /**
@@ -84,6 +84,6 @@ class User extends Authenticatable
      */
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->belongsToMany(Post::class, Comment::class);
     }
 }
