@@ -131,6 +131,15 @@ routes/
   web.php
 ```
 
+---
+
+## 🗂 7. Struktur Database
+Struktur database untuk proyek ini dapat dilihat melalui diagram berikut:
+
+[**Struktur Database - Simple Rest Social Media**](https://dbdiagram.io/d/SOCMED-Simple-API-67b9f391263d6cf9a017443f)
+
+---
+
 ## 📜 Lisensi
 Proyek ini menggunakan lisensi **MIT**.
 
