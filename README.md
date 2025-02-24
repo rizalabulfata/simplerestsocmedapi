@@ -91,7 +91,7 @@ API sekarang berjalan di: [http://127.0.0.1:2112](http://127.0.0.1:2112)
 ## 📄 5. Dokumentasi API (Postman)
 Dokumentasi API tersedia di Postman. Klik tautan berikut untuk mengaksesnya:
 
-[**Dokumentasi Postman - Simple Rest Social Media API**](#)
+[**Dokumentasi Postman - Simple Rest Social Media API**](https://documenter.getpostman.com/view/17516911/2sAYdctCtp)
 
 ---
 
