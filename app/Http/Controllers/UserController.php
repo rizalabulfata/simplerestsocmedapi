@@ -36,7 +36,7 @@ class UserController extends Controller
     /**
      * Display the following of the specified user.
      */
-    public function following(Request $request, int $id = null, UserService $service)
+    public function following(Request $request, UserService $service, int $id = null,)
     {
         $data = $service->getFollowing($request->user(), $id);
         return response()->json($data);
@@ -45,7 +45,7 @@ class UserController extends Controller
     /**
      * Follow a user.
      */
-    public function follow(Request $request, int $id, UserService $service)
+    public function follow(Request $request, UserService $service, int $id,)
     {
         $data = $service->follow($request->user(), $id);
         return response()->json($data);

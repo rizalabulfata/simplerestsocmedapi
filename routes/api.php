@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -10,6 +11,22 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('register', [AuthController::class, 'register'])->name('register');
     Route::post('login', [AuthController::class, 'login'])->name('login');
     Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth:sanctum');
+});
+
+Route::group(['prefix' => 'post', 'middleware' => 'auth:sanctum'], function () {
+    Route::get('me', [PostController::class, 'author']);
+    Route::get('{id}/author', [PostController::class, 'author']);
+
+    Route::get('{postid}/like', [PostController::class, 'like']);
+    Route::post('{postid}/like', [PostController::class, 'like']);
+
+    Route::post('{postid}/unlike', [PostController::class, 'unlike']);
+
+    Route::get('liked', [PostController::class, 'liked']);
+
+    Route::get('{id}/comment', [CommentController::class, 'show']);
+    Route::post('{id}/comment', [CommentController::class, 'store']);
+    Route::delete('{postId}/comment/{commentId}', [CommentController::class, 'destroy']);
 });
 
 Route::apiResource('post', PostController::class)->middleware('auth:sanctum');

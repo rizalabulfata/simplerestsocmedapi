@@ -6,6 +6,7 @@ use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
 use App\Services\PostService;
 use Exception;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -60,5 +61,46 @@ class PostController extends Controller
         if ($status) {
             return new PostResource($model);
         }
+    }
+
+    /**
+     * Display the author post.
+     */
+    public function author(Request $request, PostService $service, $id = null)
+    {
+        $posts = $id ?
+            $service->getPostByAuthorId($id) :
+            $service->getPostByAuthor($request->user());
+        return PostResource::collection($posts);
+    }
+
+    /**
+     * Like a post.
+     */
+    public function like(Request $request, PostService $service, int $id)
+    {
+        $data = $request->method() === 'GET' ?
+            $service->likedPosts($id) :
+            $service->like($request->user(), $id);
+
+        return response()->json($data);
+    }
+
+    /**
+     * Unlike a post.
+     */
+    public function unlike(Request $request, PostService $service, int $id)
+    {
+        $data = $service->unlike($request->user(), $id);
+        return response()->json($data);
+    }
+
+    /**
+     * Display the liked posts.
+     */
+    public function liked(Request $request, PostService $service)
+    {
+        $data = $service->likedPostsByUser($request->user());
+        return response()->json($data);
     }
 }

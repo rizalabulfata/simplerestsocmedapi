@@ -7,7 +7,7 @@ use App\Services\ModelManagementService;
 
 class UserService extends ModelManagementService
 {
-    public function __construct(User $model)
+    public function __construct(User $model = new User())
     {
         parent::__construct($model);
     }
@@ -34,8 +34,8 @@ class UserService extends ModelManagementService
     public function getFollowing(User $user, int $id = null)
     {
         return $id ?
-            $user->find($id)->following()->get() :
-            $user->following()->get();
+            $user->find($id)->followings()->get() :
+            $user->followings()->get();
     }
 
     /**
@@ -46,7 +46,7 @@ class UserService extends ModelManagementService
      */
     public function follow(User $user, int $id)
     {
-        return $user->following()->attach($id);
+        return $user->followings()->attach($id);
     }
 
     /**
@@ -57,6 +57,6 @@ class UserService extends ModelManagementService
      */
     public function unfollow(User $user, int $id)
     {
-        return $user->following()->detach($id);
+        return $user->followings()->detach($id);
     }
 }
