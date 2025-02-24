@@ -9,7 +9,7 @@ class ModelManagementRepository implements ModelManagementInterface
 {
 
     /** @var Model */
-    public Model $model;
+    protected Model $model;
 
     /**
      * Set the model instance

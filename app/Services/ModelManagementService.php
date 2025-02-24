@@ -30,7 +30,7 @@ class ModelManagementService
      */
     public function getListDataWithRelations($columns = ['*'], $relations = []): \Illuminate\Database\Eloquent\Collection
     {
-        return $this->repository->model->with($relations)->get($columns);
+        return $this->repository->getModel()->with($relations)->get($columns);
     }
 
     /**
