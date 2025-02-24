@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthService extends ModelManagementService
 {
-    public function __construct(User $model)
+    public function __construct(User $model = new User())
     {
         parent::__construct($model);
     }
